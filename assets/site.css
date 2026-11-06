@@ -1,0 +1,278 @@
+/* ClockCheck website. Saffron Studio, as designed for the app (docs/design in the app repo).
+ *
+ * Every colour and font family is set in the custom properties at the top of
+ * this file, so the look can be switched in a few lines. Nothing below the
+ * tokens names a colour or a font directly. The values match src/theme.ts in
+ * the app: change them there first.
+ * Fonts are self-hosted (assets/fonts), so no third party sees visitors.
+ */
+
+/* ---------- Fonts (self-hosted, SIL Open Font License) ---------- */
+@font-face { font-family: "Figtree"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/Figtree-400Regular.woff2") format("woff2"); }
+@font-face { font-family: "Figtree"; font-weight: 500; font-style: normal; font-display: swap; src: url("/assets/fonts/Figtree-500Medium.woff2") format("woff2"); }
+@font-face { font-family: "Figtree"; font-weight: 600; font-style: normal; font-display: swap; src: url("/assets/fonts/Figtree-600SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Figtree"; font-weight: 700; font-style: normal; font-display: swap; src: url("/assets/fonts/Figtree-700Bold.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-weight: 400; font-style: normal; font-display: swap; src: url("/assets/fonts/InstrumentSerif-400Regular.woff2") format("woff2"); }
+
+:root {
+  color-scheme: light dark;
+
+  /* ---------- Type ---------- */
+  --font-sans: "Figtree", -apple-system, system-ui, "Segoe UI", sans-serif;
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  /* Saffron Studio: serif for the big moments, Figtree for everything else. */
+  --font-display: var(--font-serif);
+  --display-weight: 400;
+  --font-body: var(--font-sans);
+
+  /* ---------- Ground (Saffron Studio, Light) ---------- */
+  --background: #F4EFE6;       /* ivory paper */
+  --surface: #FBF8F2;          /* raised rows and cards */
+  --surface-border: #DED6C8;   /* 1px border on surfaces; no shadows */
+  --hairline: #DED6C8;         /* dividers */
+  --pill-border: #CFC6B7;      /* outline of badges and chips */
+  --text: #1E1C1A;
+  --text-secondary: #6E6558;   /* 5.1:1 on background */
+  --primary: #1E1C1A;          /* primary pill: the inverse of the page */
+  --on-primary: #F4EFE6;
+
+  /* ---------- Accent: saffron, Light ---------- */
+  --hero: #E0A91E;             /* the one bold block per page */
+  --on-hero: #1E1C1A;          /* headline on hero, both themes */
+  --on-hero-secondary: #3A2E14;/* body on hero */
+  --accent: #A8780E;           /* small marks on the page ground, 24px+ only */
+  --primary-icon: #E0A91E;     /* glint on the primary pill */
+  --link-underline: #A8780E;   /* link text uses --text; the underline carries the accent */
+  --good: #2F7A4A;             /* always beside a word, never colour alone */
+  --device: #1C1B19;           /* the iPhone frame around app screens */
+  --device-edge: #6E6A62;      /* its edge, so it reads on the page ground */
+}
+
+/* ---------- Dark: designed, not inverted. Kept in step with the block above. ---------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121A2A;     /* deep navy */
+    --surface: #1A2438;
+    --surface-border: #26314A;
+    --hairline: #26314A;
+    --pill-border: #34405A;
+    --text: #F1ECE2;
+    --text-secondary: #9BA6B8;
+    --primary: #F1ECE2;
+    --on-primary: #121A2A;
+
+    --hero: #D9A21B;
+    --on-hero: #1E1C1A;
+    --on-hero-secondary: #3A2E14;
+    --accent: #E0A91E;
+    --primary-icon: #9A6B0C;
+    --link-underline: #E0A91E;
+    --good: #6FCF97;
+    --device: #0A0D14;
+    --device-edge: #3E4A66;
+  }
+}
+
+/* Increase Contrast equivalent: strengthen only the quiet colours. */
+@media (prefers-contrast: more) {
+  :root { --surface-border: #B9AE9C; --hairline: #B9AE9C; --pill-border: #A89D8B; --text-secondary: #4F473B; --accent: #8A6209; }
+}
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root { --surface-border: #44516E; --hairline: #44516E; --pill-border: #52607E; --text-secondary: #C3CBD8; --accent: #F0BE4A; }
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  font: 400 17px/1.55 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: var(--text); text-decoration-line: underline; text-decoration-color: var(--link-underline); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2.5px; }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; border-radius: 4px; }
+strong { font-weight: 600; }
+
+.skip { position: absolute; left: 16px; top: -100px; z-index: 10; padding: 10px 18px; border-radius: 999px; background: var(--primary); color: var(--on-primary); text-decoration: none; font-weight: 600; }
+.skip:focus { top: 12px; }
+
+/* 8pt grid; 20px gutter on phones. */
+.wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+.wrap--text { max-width: 720px; }
+
+/* ---------- Top bar ---------- */
+.topbar { padding: 20px 0; }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.wordmark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font: 700 14px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; }
+.wordmark img { width: 32px; height: 32px; border-radius: 22.5%; }
+.topnav { display: flex; gap: 4px; }
+.topnav a { text-decoration: none; font-weight: 500; font-size: 15px; padding: 10px 14px; border-radius: 999px; min-height: 44px; display: inline-flex; align-items: center; }
+.topnav a:hover, .topnav a[aria-current="page"] { background: var(--surface); box-shadow: inset 0 0 0 1px var(--surface-border); }
+@media (max-width: 479px) { .topnav { display: none; } }
+
+/* ---------- Type ---------- */
+h1, h2, h3 { font-family: var(--font-display); font-weight: var(--display-weight); color: var(--text); margin: 0; }
+/* No widows: balance headings, keep paragraphs from ending on one word. */
+h1, h2, h3, summary, .eyebrow { text-wrap: balance; }
+p, li, dd, figcaption { text-wrap: pretty; }
+td, th { text-wrap: balance; }
+.display { font-size: clamp(52px, 11vw, 84px); line-height: 0.98; letter-spacing: -0.02em; }
+.title { font-size: clamp(36px, 6.5vw, 52px); line-height: 1.04; letter-spacing: -0.015em; }
+.eyebrow { font: 700 13px/1.2 var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin: 0 0 12px; }
+.lead { font-size: clamp(19px, 2.4vw, 22px); line-height: 1.5; color: var(--text); max-width: 34em; }
+.muted { color: var(--text-secondary); }
+.fine { font-size: 15px; color: var(--text-secondary); }
+[hidden] { display: none !important; }
+
+/* ---------- Hero: the one bold block ---------- */
+.hero { position: relative; overflow: hidden; background: var(--hero); color: var(--on-hero); border-radius: 30px; padding: 40px 24px; margin: 8px 0 0; }
+.hero h1 { color: var(--on-hero); position: relative; max-width: 8ch; }
+.hero .eyebrow { color: var(--on-hero-secondary); position: relative; }
+.hero p { color: var(--on-hero-secondary); position: relative; }
+.hero .lead { color: var(--on-hero); margin: 20px 0 0; max-width: 24em; }
+/* The watch dial: the app's motif, line art cropped off the top-right corner. */
+.hero-motif { position: absolute; right: -104px; top: -92px; width: 270px; height: 270px; color: var(--on-hero); opacity: 0.38; pointer-events: none; }
+@media (min-width: 720px) {
+  .hero { padding: 72px 64px 80px; }
+  .hero h1 { max-width: 10ch; }
+  .hero-motif { width: 500px; height: 500px; right: -110px; top: -100px; }
+}
+
+/* ---------- App Store area ---------- */
+.get { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin: 32px 0 0; }
+.get p { margin: 0; }
+.pill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 12px 24px; border-radius: 999px; font: 600 17px/22px var(--font-body); text-decoration: none; }
+.pill--primary { background: var(--primary); color: var(--on-primary); }
+.pill--primary svg { color: var(--primary-icon); }
+.pill--secondary { background: var(--surface); color: var(--text); border: 1px solid var(--surface-border); }
+.pill:active { transform: scale(0.97); opacity: 0.8; }
+.badge { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 14px; border-radius: 999px; border: 1px solid var(--pill-border); font: 700 12px/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); }
+
+/* ---------- Sections ---------- */
+.section { padding: 72px 0 0; }
+.section > .title { max-width: 14em; }
+.section-lead { margin: 16px 0 0; color: var(--text-secondary); max-width: 34em; }
+
+/* How it works: the steps beside an example result. */
+.how { display: grid; gap: 40px; margin: 32px 0 0; }
+@media (min-width: 820px) { .how { grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; } }
+
+/* Steps: order matters here, so they're numbered (StepList). */
+.steps { list-style: none; margin: 0; padding: 0; }
+.steps li { display: flex; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--hairline); }
+.steps li:first-child { border-top: 1px solid var(--hairline); }
+.steps .n { flex: none; min-width: 34px; font: var(--display-weight) 28px/1.15 var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.steps .t { display: block; font-weight: 600; font-size: 18px; line-height: 1.3; }
+.steps .d { display: block; margin-top: 3px; color: var(--text-secondary); }
+
+/* Example result: an illustration of the app's result screen, not a real reading. */
+.result { margin: 0; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 22px; padding: 24px; }
+.result .badge { margin: 0 0 16px; }
+.rate { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; font: var(--display-weight) clamp(72px, 16vw, 96px)/1 var(--font-display); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.rate small { font: 500 17px/1.3 var(--font-body); color: var(--text-secondary); letter-spacing: 0; }
+.verdict { display: flex; align-items: center; gap: 8px; margin: 12px 0 0; font-weight: 600; color: var(--good); }
+.verdict svg { flex: none; }
+.result .confidence { margin: 4px 0 0; color: var(--text-secondary); font-size: 15px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 20px 0 0; padding: 16px 0 0; border-top: 1px solid var(--hairline); }
+.stats div { min-width: 0; }
+.stats dt { margin: 0; font-size: 13px; line-height: 1.3; color: var(--text-secondary); order: 2; }
+.stats dd { margin: 0; font-weight: 600; font-size: 17px; font-variant-numeric: tabular-nums; }
+.stats div { display: flex; flex-direction: column; }
+
+/* Feature cards: borders, not shadows. */
+.features { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 12px; }
+@media (min-width: 720px) { .features { grid-template-columns: 1fr 1fr; gap: 16px; } }
+.feature { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 22px; padding: 22px 24px 24px; }
+.feature h3 { font-family: var(--font-body); font-weight: 600; font-size: 19px; line-height: 1.3; }
+.feature p { margin: 6px 0 0; color: var(--text-secondary); }
+
+/* Watch Box (Premium) */
+.premium { display: grid; gap: 28px; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 30px; padding: 32px 24px; }
+.premium .title { margin: 0; }
+.premium .lead { margin: 12px 0 0; }
+.ticks { list-style: none; margin: 0; padding: 0; }
+.ticks li { position: relative; padding: 12px 0 12px 28px; border-bottom: 1px solid var(--hairline); }
+.ticks li:first-child { border-top: 1px solid var(--hairline); }
+.ticks li::before { content: ""; position: absolute; left: 2px; top: 22px; width: 12px; height: 6px; border-left: 2.5px solid var(--accent); border-bottom: 2.5px solid var(--accent); transform: rotate(-45deg); }
+.price { margin: 20px 0 0; font-weight: 600; }
+@media (min-width: 820px) { .premium { grid-template-columns: 1fr 1fr; gap: 56px; padding: 56px 56px 56px; align-items: start; } }
+
+/* ---------- App screens in an iPhone frame (home; build.py adds them once images/screens/ has images) ---------- */
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.screens > .fine { margin: 8px 0 0; }
+.screens-row {
+  list-style: none; display: flex; gap: 16px; margin: 24px -20px 0; padding: 12px 20px 16px;
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
+  -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+}
+.screens-row:focus-visible { outline-offset: -2px; border-radius: 30px; }
+/* Each screen is a size container, so the frame's bezel, corners and Dynamic Island scale with it (cqw). */
+.screen { flex: 0 0 auto; width: min(68vw, 272px); scroll-snap-align: start; container-type: inline-size; }
+.screen figure { margin: 0; }
+.screen figcaption { margin: 14px 4px 0; font-weight: 600; font-size: 15px; line-height: 1.3; text-align: center; }
+/* The frame is drawn here, flat and in one colour; the capture inside is the app itself. */
+.phone { position: relative; padding: 3.4cqw; background: var(--device); border-radius: 16.4cqw; box-shadow: 0 0 0 1px var(--device-edge); }
+.phone picture { display: block; }
+/* The page's own colour shows until the capture arrives, so a slow load never looks like a black slab. */
+.phone img { width: 100%; height: auto; aspect-ratio: 1179 / 2556; object-fit: cover; border-radius: 13cqw; background: var(--background); }
+.island { position: absolute; top: 6cqw; left: 50%; width: 29.9cqw; height: 8.8cqw; transform: translateX(-50%); border-radius: 999px; background: #000; }
+/* Side buttons: volume on the left, power on the right. */
+.phone::before, .phone::after { content: ""; position: absolute; width: 1.1cqw; border-radius: 1cqw; background: var(--device-edge); }
+.phone::before { left: -1.1cqw; top: 29cqw; height: 34cqw; background: linear-gradient(var(--device-edge) 0 44%, transparent 44% 56%, var(--device-edge) 56%); }
+.phone::after { right: -1.1cqw; top: 44cqw; height: 22cqw; }
+@media (min-width: 720px) { .screens-row { margin: 24px 0 0; padding: 12px 0 16px; scroll-padding-inline: 0; } }
+
+/* Previous / next: only where there's a mouse, and only once the script has run. */
+.carousel-nav { display: none; gap: 8px; margin: 4px 0 0; }
+@media (hover: hover) and (pointer: fine) { .carousel-nav:not([hidden]) { display: flex; } }
+.nav-btn { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; border-radius: 999px; background: var(--surface); color: var(--text); border: 1px solid var(--surface-border); cursor: pointer; }
+.nav-btn:disabled { opacity: 0.35; cursor: default; }
+.nav-btn:not(:disabled):active { transform: scale(0.97); opacity: 0.8; }
+
+/* ---------- Long text (privacy, support) ---------- */
+.prose { padding: 16px 0 0; }
+.prose h1 { font-size: clamp(40px, 8vw, 56px); line-height: 1.02; letter-spacing: -0.015em; margin: 0 0 16px; }
+.prose h2 { font-size: 30px; line-height: 1.15; letter-spacing: -0.005em; margin: 48px 0 12px; }
+.prose h3 { font-family: var(--font-body); font-weight: 600; font-size: 19px; line-height: 1.35; margin: 32px 0 8px; }
+.prose p, .prose ul, .prose ol { margin: 0 0 16px; }
+.prose ul, .prose ol { padding-left: 1.3em; }
+.prose li { margin: 0 0 10px; }
+.prose li::marker { color: var(--accent); }
+.table-scroll { overflow-x: auto; margin: 0 0 16px; border: 1px solid var(--surface-border); border-radius: 16px; background: var(--surface); }
+.prose table { width: 100%; border-collapse: collapse; font-size: 16px; min-width: 520px; }
+.prose th, .prose td { text-align: left; vertical-align: top; padding: 12px 16px; border-bottom: 1px solid var(--hairline); }
+.prose tr:last-child td { border-bottom: 0; }
+.prose th { font-weight: 600; }
+
+/* Contact card on Support */
+.contact { background: var(--surface); border: 1px solid var(--surface-border); border-radius: 22px; padding: 24px; margin: 24px 0 8px; }
+.contact p { margin: 0 0 16px; color: var(--text-secondary); }
+.contact .pill { margin: 0; }
+
+/* FAQ */
+.faq { margin: 8px 0 0; }
+.faq details { border-bottom: 1px solid var(--hairline); }
+.faq details:first-child { border-top: 1px solid var(--hairline); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 0; min-height: 44px; font-weight: 600; font-size: 18px; line-height: 1.35; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: none; width: 10px; height: 10px; border-right: 2px solid var(--text-secondary); border-bottom: 2px solid var(--text-secondary); transform: rotate(45deg) translateY(-3px); transition: transform 0.2s; }
+.faq details[open] summary::after { transform: rotate(-135deg) translateY(-3px); }
+.faq .answer { padding: 0 0 12px; }
+.faq .answer p, .faq .answer ol, .faq .answer ul { margin: 0 0 12px; }
+
+/* ---------- Footer ---------- */
+.footer { margin-top: 96px; padding: 32px 0 48px; border-top: 1px solid var(--hairline); color: var(--text-secondary); font-size: 15px; }
+.footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; }
+.footer nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 24px; }
+.footer a { color: var(--text); display: inline-flex; min-height: 44px; align-items: center; }
+.footer p { margin: 0; display: flex; align-items: center; min-height: 44px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pill:active, .nav-btn:not(:disabled):active { transform: none; }
+  .faq summary::after { transition: none; }
+}

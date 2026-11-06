@@ -1,0 +1,165 @@
+<div class="wrap">
+  <section class="hero" aria-labelledby="app-name">
+    <!-- The watch dial from the app icon, hands at 10:05. Line art, cropped off the corner. -->
+    <svg class="hero-motif" viewBox="0 0 230 230" fill="none" stroke="currentColor" aria-hidden="true" focusable="false">
+      <circle cx="115" cy="115" r="108" stroke-opacity=".3" stroke-width="2.7"/>
+      <circle cx="115" cy="115" r="93.85" stroke-opacity=".45" stroke-width="4.3" stroke-dasharray="1.5 8.33" transform="rotate(-90.46 115 115)"/>
+      <circle cx="115" cy="115" r="89.5" stroke-opacity=".8" stroke-width="13" stroke-dasharray="5.9 40.96" transform="rotate(-91.89 115 115)"/>
+      <line x1="115" y1="115" x2="71.3" y2="87.2" stroke-opacity=".85" stroke-width="8.1" stroke-linecap="round"/>
+      <line x1="115" y1="115" x2="152.8" y2="49.5" stroke-opacity=".85" stroke-width="5.7" stroke-linecap="round"/>
+      <circle cx="115" cy="115" r="6.9" fill="currentColor" stroke="none"/>
+    </svg>
+    <p class="eyebrow">Watch accuracy</p>
+    <h1 id="app-name" class="display">How true is your watch?</h1>
+    <p class="lead">Hold your mechanical watch to your iPhone for 20 seconds. ClockCheck listens to it tick and tells you how many seconds a day it gains or loses.</p>
+  </section>
+
+  <div class="get" id="download">
+    <!--
+      TODO(launch): replace the "Coming soon" badge below with the App Store link
+      once ClockCheck is live (the app's App Store ID is on its App Store Connect
+      page). Use Apple's official "Download on the App Store" badge artwork from
+      https://developer.apple.com/app-store/marketing/guidelines/ (don't redraw it),
+      saved locally in /assets so no third party is contacted, e.g.:
+        <a href="https://apps.apple.com/app/idXXXXXXXXXX">
+          <img src="/assets/app-store-badge.svg" width="156" height="52" alt="Download on the App Store">
+        </a>
+      Then run build.py again.
+    -->
+    <span class="badge">Coming soon to the App Store</span>
+    <p class="muted">For iPhone. Free to check.</p>
+  </div>
+
+  <!-- screens:start
+    The app's screens, each in an iPhone frame (drawn in CSS around the capture).
+    build.py keeps each <li> only if its image exists in images/screens/, and leaves
+    the whole section out until at least one does, so nothing shows (and nothing
+    404s) before screenshots exist. To change them: save new captures as
+    images/screens/01.png ... 06.png (iPhone 15 Pro simulator, 1179x2556, resized to
+    720px wide; see the README), update each alt and caption below, and run
+    python3 build.py. build.py refuses to publish a TODO alt. Scrolls sideways with
+    touch, trackpad, or the arrow keys once focused; the buttons are the only script.
+  -->
+  <section class="section screens" aria-labelledby="screens-title">
+    <p class="eyebrow">Inside the app</p>
+    <h2 id="screens-title" class="title">From one tick to a whole watch box.</h2>
+    <div class="carousel">
+      <ul class="screens-row" tabindex="0" aria-label="ClockCheck screens, scrolls sideways">
+        <li class="screen"><figure><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="/images/screens/01-dark.png"><img src="/images/screens/01.png" alt="The Check screen: a saffron panel asking &ldquo;How true is your watch?&rdquo;, a beat rate picker and a Start check button" loading="lazy" decoding="async"></picture><span class="island" aria-hidden="true"></span></div><figcaption>Start a check</figcaption></figure></li>
+        <li class="screen"><figure><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="/images/screens/02-dark.png"><img src="/images/screens/02.png" alt="A result: the watch runs 5.1 seconds slow per day, with high confidence, a tick trace and 28,800 beats per hour" loading="lazy" decoding="async"></picture><span class="island" aria-hidden="true"></span></div><figcaption>Your rate, in plain English</figcaption></figure></li>
+        <li class="screen"><figure><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="/images/screens/03-dark.png"><img src="/images/screens/03.png" alt="The Watch Box: a grid of line-drawn watches, each with its average rate and number of checks" loading="lazy" decoding="async"></picture><span class="island" aria-hidden="true"></span></div><figcaption>Your whole collection</figcaption></figure></li>
+        <li class="screen"><figure><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="/images/screens/04-dark.png"><img src="/images/screens/04.png" alt="One watch&#x27;s page: a saffron panel with its average rate over the last 30 days, and the advice &ldquo;Running within spec&rdquo;" loading="lazy" decoding="async"></picture><span class="island" aria-hidden="true"></span></div><figcaption>How each watch is doing</figcaption></figure></li>
+        <li class="screen"><figure><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="/images/screens/05-dark.png"><img src="/images/screens/05.png" alt="A watch&#x27;s history: every check plotted against the range its movement is made to run, with the list of checks below" loading="lazy" decoding="async"></picture><span class="island" aria-hidden="true"></span></div><figcaption>Every check, against its spec</figcaption></figure></li>
+        <li class="screen"><figure><div class="phone"><picture><source media="(prefers-color-scheme: dark)" srcset="/images/screens/06-dark.png"><img src="/images/screens/06.png" alt="A watch that needs attention: its average rate over the last 30 days and the advice &ldquo;Time for a service&rdquo;" loading="lazy" decoding="async"></picture><span class="island" aria-hidden="true"></span></div><figcaption>Plain service advice</figcaption></figure></li>
+      </ul>
+      <div class="carousel-nav" hidden>
+        <button type="button" class="nav-btn" data-dir="-1" aria-label="Previous screen"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 5-7 7 7 7"/></svg></button>
+        <button type="button" class="nav-btn" data-dir="1" aria-label="Next screen"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></button>
+      </div>
+    </div>
+    <p class="fine">Screens show sample watches and checks, and follow your device&rsquo;s light or dark setting.</p>
+    <script>
+      (function () {
+        var row = document.querySelector('.screens-row');
+        var nav = document.querySelector('.carousel-nav');
+        if (!row || !nav) return;
+        var prev = nav.querySelector('[data-dir="-1"]');
+        var next = nav.querySelector('[data-dir="1"]');
+        var smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        nav.hidden = false;
+        function step() {
+          var one = row.querySelector('.screen');
+          return one ? one.getBoundingClientRect().width + 16 : 280;
+        }
+        function update() {
+          prev.disabled = row.scrollLeft < 4;
+          next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
+        }
+        nav.addEventListener('click', function (e) {
+          var b = e.target.closest('button');
+          if (b) row.scrollBy({ left: b.getAttribute('data-dir') * step(), behavior: smooth ? 'smooth' : 'auto' });
+        });
+        row.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        update();
+      })();
+    </script>
+  </section>
+  <!-- screens:end -->
+
+  <section class="section" aria-labelledby="how">
+    <p class="eyebrow">The 20-second check</p>
+    <h2 id="how" class="title">A timegrapher in your pocket.</h2>
+    <p class="section-lead">It works like the machine a watchmaker uses, with the microphone already in your phone.</p>
+    <div class="how">
+      <ol class="steps">
+        <li><span class="n" aria-hidden="true">01</span><span><span class="t">Find a quiet room</span><span class="d">Phone face up on a table.</span></span></li>
+        <li><span class="n" aria-hidden="true">02</span><span><span class="t">Case back to the microphone</span><span class="d">The holes on the phone&rsquo;s bottom edge.</span></span></li>
+        <li><span class="n" aria-hidden="true">03</span><span><span class="t">Stay still for 20 seconds</span><span class="d">ClockCheck listens to every tick and times it.</span></span></li>
+      </ol>
+      <figure class="result" aria-label="An example result">
+        <span class="badge">Example result</span>
+        <div class="rate">&minus;5.1<small>seconds slow per day</small></div>
+        <p class="verdict">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="m7.8 12.4 2.9 2.9 5.6-6"/></svg>
+          Excellent for a mechanical watch
+        </p>
+        <p class="confidence">High confidence. Clear ticks, heard all the way through.</p>
+        <dl class="stats">
+          <div><dt>beats per hour</dt><dd>28,800</dd></div>
+          <div><dt>beat error</dt><dd>0.0 ms</dd></div>
+          <div><dt>ticks heard</dt><dd>159/160</dd></div>
+        </dl>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="what">
+    <p class="eyebrow">What you get</p>
+    <h2 id="what" class="title">Plain numbers, and how far to trust them.</h2>
+    <ul class="features">
+      <li class="feature">
+        <h3>Honest about how sure it is</h3>
+        <p>Every result has a High, Medium or Low confidence rating. If the room was noisy or the watch moved, ClockCheck says so, and rounds the number instead of pretending to be precise.</p>
+      </li>
+      <li class="feature">
+        <h3>A verdict in plain English</h3>
+        <p>From &ldquo;Exceptional accuracy&rdquo; to &ldquo;Well off &mdash; may need regulating or service&rdquo;, so you know what the number means. Within two seconds a day earns a crown.</p>
+      </li>
+      <li class="feature">
+        <h3>Finds the beat rate for you</h3>
+        <p>It works out whether your movement beats 18,000 or 28,800 times an hour on its own. Know yours? Pick it by hand, from 14,400 to 36,000.</p>
+      </li>
+      <li class="feature">
+        <h3>A result worth sharing</h3>
+        <p>Make a picture of your result, with the rate, the verdict and the beat error, and send it anywhere from the share sheet.</p>
+      </li>
+    </ul>
+    <p class="fine">ClockCheck is a quick desk check for mechanical watches, not a lab instrument. For a serious regulation job, ask your watchmaker.</p>
+  </section>
+
+  <section class="section" aria-labelledby="premium">
+    <div class="premium">
+      <div>
+        <p class="eyebrow">Premium</p>
+        <h2 id="premium" class="title">The Watch Box.</h2>
+        <p class="lead">The check is free. Premium remembers, so you can see how each watch keeps time over weeks and months.</p>
+        <p class="price">$1 a month or $10 a year.</p>
+        <p class="fine">US prices. Apple shows your own country&rsquo;s price. Try it with one watch for free.</p>
+      </div>
+      <ul class="ticks">
+        <li>Your whole collection in one place, with a wish list for the ones you&rsquo;d like.</li>
+        <li>Save each check to the watch it was for.</li>
+        <li>A simple chart of your readings against what that movement is designed to do.</li>
+        <li>Plain service advice when a watch drifts outside its movement&rsquo;s range.</li>
+        <li>Your own photo of each watch.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="private">
+    <p class="eyebrow">Privacy</p>
+    <h2 id="private" class="title">The sound stays on your phone.</h2>
+    <p class="lead">It&rsquo;s analysed on your phone and never uploaded. A free check saves nothing. No account, no ads, no tracking, and everything in the Watch Box stays on your phone too. <a href="/privacy/">Read the privacy policy</a>.</p>
+  </section>
+</div>
