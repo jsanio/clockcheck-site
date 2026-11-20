@@ -199,15 +199,18 @@ td, th { text-wrap: balance; }
 .feature p { margin: 6px 0 0; color: var(--text-secondary); }
 
 /* Watch Box (Premium) */
-.premium { display: grid; gap: 28px; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 30px; padding: 32px 24px; }
-.premium .title { margin: 0; }
-.premium .lead { margin: 12px 0 0; }
+.watchbox { display: grid; gap: 28px; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 30px; padding: 32px 24px; }
+.watchbox .title { margin: 0; }
+.watchbox .lead { margin: 12px 0 0; }
 .ticks { list-style: none; margin: 0; padding: 0; }
 .ticks li { position: relative; padding: 12px 0 12px 28px; border-bottom: 1px solid var(--hairline); }
 .ticks li:first-child { border-top: 1px solid var(--hairline); }
 .ticks li::before { content: ""; position: absolute; left: 2px; top: 22px; width: 12px; height: 6px; border-left: 2.5px solid var(--accent); border-bottom: 2.5px solid var(--accent); transform: rotate(-45deg); }
-.price { margin: 20px 0 0; font-weight: 600; }
-@media (min-width: 820px) { .premium { grid-template-columns: 1fr 1fr; gap: 56px; padding: 56px 56px 56px; align-items: start; } }
+@media (min-width: 820px) { .watchbox { grid-template-columns: 1fr 1fr; gap: 56px; padding: 56px 56px 56px; align-items: start; } }
+/* "Buy me a coffee": a quiet block at the end of the home page, no panel. */
+.coffee .title { margin: 0; }
+.coffee .lead { margin: 12px 0 24px; }
+.coffee .fine { margin: 12px 0 0; }
 
 /* ---------- App screens in an iPhone frame (home; build.py adds them once images/screens/ has images) ---------- */
 .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

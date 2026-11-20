@@ -130,7 +130,7 @@ def screens(body: str) -> str:
 
 PAGES = [
     dict(out="index.html", path="/", home=True, title="ClockCheck",
-         description="Hold your mechanical watch to your iPhone for 20 seconds and ClockCheck tells you how many seconds a day it gains or loses. Free to check, private, no account.",
+         description="Hold your mechanical watch to your iPhone for 20 seconds and ClockCheck tells you how many seconds a day it gains or loses. Free, private, no account.",
          body=lambda: screens((SRC / "home.html").read_text(encoding="utf-8"))),
     dict(out="support/index.html", path="/support/", title="Support",
          description="Get help with ClockCheck: contact hello@clockcheck.app and answers to common questions.",

@@ -39,11 +39,13 @@ How the current six were made (2026-11-02): iPhone 15 Pro simulator on iOS 27 ru
 ## Open items after launch
 
 - **The Privacy Policy went live as drafted on 2026-11-05**, on Jason's go-ahead to launch the site. It came from the app repo's `docs/launch/legal/privacy-policy.md`, with the bracketed notes resolved for the beta period (TestFlight builds are in use). Jason still reviews the final wording at J10 in the launch plan; when the text changes, replace `_src/legal/privacy.html`, update its "Last updated" date, and rebuild.
-- **Claims to confirm** (same list as `docs/launch/app-store-listing.md` in the app repo): "never saved or uploaded" is only true once the testing tools are off (`DIAGNOSTICS_ENABLED`, task T7); "try it with one watch for free" (`FREE_WATCH_LIMIT = 1`); $1 / $10 prices; mechanical watches only; no accuracy claims beyond what the app says.
+- **Free launch (2026-11-20, branch `coffee-branch`, not published):** Jason dropped Premium "at least for now". The branch rewrites the Privacy Policy (no purchases; a "Tips" section for the Buy Me a Coffee link; the Test versions only section and the TestFlight sentence are already out), the home page (the old Premium section is now a free "Watch Box" section, and a "Buy me a coffee" block ends the page) and the Support page (Premium FAQs replaced). The link is https://buymeacoffee.com/clockcheck. **Merge to `main` only when the app launches**, because the live site must keep matching the app people can download until then.
+- **Screen 01 of the carousel still shows the old "Premium" pill** in the app's top corner (the new build has no pill). Recapture `01.png` and `01-dark.png` from the new build with the steps above before launch.
+- **Claims to confirm** (same list as `docs/launch/app-store-listing.md` in the app repo): "never saved or uploaded" is only true once the testing tools are off (`DIAGNOSTICS_ENABLED`, task T7); "free" is true today (don't write "always free"); the store text must not mention tips, because Apple allows outside payment links only in the US storefront; mechanical watches only; no accuracy claims beyond what the app says; what Buy Me a Coffee shows the page owner (the Privacy Policy's "Tips" section describes it).
 
 ## Before the public App Store launch (task T7)
 
-1. In `_src/legal/privacy.html`, delete the **Test versions only** section and the TestFlight sentence under **Apple**, once the testing tools are off and no test builds ship.
+1. (Done on `coffee-branch`.) The **Test versions only** section and the TestFlight sentence are out of `_src/legal/privacy.html`; that is only right once the testing tools are off and no test builds ship.
 2. In `_src/home.html`, replace the "Coming soon" badge with Apple's official badge linking to the App Store page (the `TODO(launch)` comment has the steps).
 3. Add the App Store screenshots (above).
 4. In the app repo, set `LINKS.privacy` in `src/links.ts` to `https://clockcheck.app/privacy`.
