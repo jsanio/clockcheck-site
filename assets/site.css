@@ -17,6 +17,9 @@
 :root {
   color-scheme: light dark;
 
+  /* The page column. Shared with the full-width screens row so its first screen lines up with the headings. */
+  --wrap-max: 1040px;
+
   /* ---------- Type ---------- */
   --font-sans: "Figtree", -apple-system, system-ui, "Segoe UI", sans-serif;
   --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
@@ -102,7 +105,11 @@ strong { font-weight: 600; }
 .skip:focus { top: 12px; }
 
 /* 8pt grid; 20px gutter on phones. */
-.wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+.wrap { width: 100%; max-width: var(--wrap-max); margin: 0 auto; padding: 0 20px; }
+/* The screens row below is as wide as the page (100cqw = this element's width, which unlike 100vw leaves out a
+   desktop scrollbar, so the row lines up with the headings either way). Clip it here so the page itself never
+   scrolls sideways. */
+main { container-type: inline-size; overflow-x: clip; }
 .wrap--text { max-width: 720px; }
 
 /* ---------- Top bar ---------- */
@@ -206,10 +213,19 @@ td, th { text-wrap: balance; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .screens > .fine { margin: 8px 0 0; }
 .screens-row {
-  list-style: none; display: flex; gap: 16px; margin: 24px -20px 0; padding: 12px 20px 16px;
-  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 20px;
-  -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+  /* As wide as the page at every size, so the screens run off the edge and can be scrolled through, instead of
+     being cut off at the page column. The side padding (--edge) puts the first screen back in line with the
+     headings: the column's left edge, or the 20px gutter when the window is narrower than the column. */
+  --edge: max(20px, calc((100cqw - var(--wrap-max)) / 2 + 20px));
+  list-style: none; display: flex; gap: 16px; margin: 24px calc(50% - 50cqw) 0; padding: 12px var(--edge) 16px;
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge);
+  -webkit-overflow-scrolling: touch;
+  /* No scrollbar track: touch and trackpad scroll it, and the buttons below cover the mouse. */
+  scrollbar-width: none;
 }
+.screens-row::-webkit-scrollbar { display: none; }
+/* Snapping that always pulls to a screen is right for a thumb, but fights a trackpad or a mouse drag. */
+@media (hover: hover) and (pointer: fine) { .screens-row { scroll-snap-type: x proximity; } }
 .screens-row:focus-visible { outline-offset: -2px; border-radius: 30px; }
 /* Each screen is a size container, so the frame's bezel, corners and Dynamic Island scale with it (cqw). */
 .screen { flex: 0 0 auto; width: min(68vw, 272px); scroll-snap-align: start; container-type: inline-size; }
@@ -225,7 +241,6 @@ td, th { text-wrap: balance; }
 .phone::before, .phone::after { content: ""; position: absolute; width: 1.1cqw; border-radius: 1cqw; background: var(--device-edge); }
 .phone::before { left: -1.1cqw; top: 29cqw; height: 34cqw; background: linear-gradient(var(--device-edge) 0 44%, transparent 44% 56%, var(--device-edge) 56%); }
 .phone::after { right: -1.1cqw; top: 44cqw; height: 22cqw; }
-@media (min-width: 720px) { .screens-row { margin: 24px 0 0; padding: 12px 0 16px; scroll-padding-inline: 0; } }
 
 /* Previous / next: only where there's a mouse, and only once the script has run. */
 .carousel-nav { display: none; gap: 8px; margin: 4px 0 0; }

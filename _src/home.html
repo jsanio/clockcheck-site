@@ -69,7 +69,10 @@
         nav.hidden = false;
         function step() {
           var one = row.querySelector('.screen');
-          return one ? one.getBoundingClientRect().width + 16 : 280;
+          var card = one ? one.getBoundingClientRect().width + 16 : 280;
+          // The row is as wide as the window, so on a wide one a click moves several screens at once,
+          // always leaving the last one in view.
+          return card * Math.max(1, Math.floor(row.clientWidth / card) - 1);
         }
         function update() {
           prev.disabled = row.scrollLeft < 4;
