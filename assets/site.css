@@ -306,6 +306,12 @@ td, th { text-wrap: balance; }
   :root {
     --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    /* The app's "appear" spring (src/theme.ts: damping 1, response 0.4s): critically damped, no bounce.
+       Sampled into linear() over 600ms; browsers without linear() get a close cubic-bezier. */
+    --spring-appear: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @supports (transition-timing-function: linear(0, 1)) {
+    :root { --spring-appear: linear(0, 0.06, 0.186, 0.329, 0.466, 0.584, 0.682, 0.76, 0.821, 0.868, 0.903, 0.929, 0.949, 0.963, 0.973, 0.981, 0.986, 0.99, 0.993, 0.995, 0.997, 0.998, 0.998, 0.999, 1); }
   }
 
   /* States ease instead of snapping, and the focus ring grows out from its element. */
@@ -351,6 +357,15 @@ td, th { text-wrap: balance; }
     opacity: 1;
     transform: none;
     transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+  }
+
+  /* The example result arrives the way a result does in the app (Appear.tsx): a fade with a slight
+     scale-up from 0.96, from the centre, once. The number and the dots stay still, as in the app. */
+  .motion .appear { opacity: 0; transform: scale(0.96); }
+  .motion .appear.is-in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 600ms var(--spring-appear) 150ms, transform 600ms var(--spring-appear) 150ms;
   }
 
   /* The hero dial drifts very slowly as the page scrolls (a CSS scroll timeline: no script). Where the

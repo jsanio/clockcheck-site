@@ -1,5 +1,6 @@
-/* Sections rise into view once, as they are scrolled to. The look is in assets/site.css (.motion, .reveal,
- * .is-in); this file only decides which sections wait and notices when they arrive.
+/* Sections rise into view once, as they are scrolled to, and the example result arrives the way a result does
+ * in the app (a fade with a slight scale-up). The look is in assets/site.css (.motion, .reveal,
+ * .appear, .is-in); this file only decides which sections wait and notices when they arrive.
  *
  * It does nothing, and nothing is ever hidden, for visitors who ask for less motion
  * (prefers-reduced-motion) or whose browser has no IntersectionObserver. Sections already on screen
@@ -11,7 +12,7 @@
 
   // Only sections still below the fold wait to rise in.
   var fold = window.innerHeight * 0.92;
-  var waiting = Array.prototype.filter.call(document.querySelectorAll('.section'), function (el) {
+  var waiting = Array.prototype.filter.call(document.querySelectorAll('.section, .result'), function (el) {
     return el.getBoundingClientRect().top > fold;
   });
   if (!waiting.length) return;
@@ -36,7 +37,7 @@
   );
 
   waiting.forEach(function (el) {
-    el.classList.add('reveal');
+    el.classList.add(el.classList.contains('result') ? 'appear' : 'reveal');
     io.observe(el);
   });
   if (footer) io.observe(footer);
