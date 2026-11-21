@@ -198,7 +198,7 @@ td, th { text-wrap: balance; }
 .feature h3 { font-family: var(--font-body); font-weight: 600; font-size: 19px; line-height: 1.3; }
 .feature p { margin: 6px 0 0; color: var(--text-secondary); }
 
-/* Watch Box (Premium) */
+/* Watch Box */
 .watchbox { display: grid; gap: 28px; background: var(--surface); border: 1px solid var(--surface-border); border-radius: 30px; padding: 32px 24px; }
 .watchbox .title { margin: 0; }
 .watchbox .lead { margin: 12px 0 0; }
@@ -293,4 +293,74 @@ td, th { text-wrap: balance; }
 @media (prefers-reduced-motion: reduce) {
   .pill:active, .nav-btn:not(:disabled):active { transform: none; }
   .faq summary::after { transition: none; }
+}
+
+/* ---------- Motion ----------
+ * Apple-style and restrained: short eases (150 to 250ms) on hover and focus, sections that rise into view
+ * once (assets/motion.js decides which), and a very slow drift on the hero dial.
+ * ALL of it sits inside prefers-reduced-motion: no-preference, so visitors who ask for less motion get none
+ * of it, and nothing is hidden for them. Hover effects need a real pointer, so touch never gets stuck on one.
+ * The existing look (borders, no shadows) is kept: lifts are a pixel or two plus a colour shift.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* States ease instead of snapping, and the focus ring grows out from its element. */
+  a, button, summary, .screens-row {
+    transition: text-decoration-color 200ms var(--ease), text-decoration-thickness 200ms var(--ease),
+      text-underline-offset 200ms var(--ease), outline-offset 150ms var(--ease);
+  }
+  .pill, .nav-btn {
+    transition: transform 200ms var(--ease), background-color 200ms var(--ease), border-color 200ms var(--ease),
+      opacity 200ms var(--ease), outline-offset 150ms var(--ease);
+  }
+  .topnav a {
+    transition: background-color 200ms var(--ease), box-shadow 200ms var(--ease), outline-offset 150ms var(--ease);
+  }
+  .wordmark { transition: opacity 200ms var(--ease), outline-offset 150ms var(--ease); }
+  .feature, .contact, .watchbox { transition: transform 250ms var(--ease-out), border-color 250ms var(--ease); }
+  .phone { transition: transform 250ms var(--ease-out); }
+  .faq summary::after { transition: transform 200ms var(--ease), border-color 200ms var(--ease); }
+
+  @media (hover: hover) and (pointer: fine) {
+    a:hover { text-underline-offset: 4px; }
+    .pill:hover { transform: translateY(-1px); }
+    .pill--primary:hover { background-color: color-mix(in srgb, var(--primary) 88%, var(--background)); }
+    .pill--secondary:hover { border-color: var(--pill-border); background-color: color-mix(in srgb, var(--surface) 60%, var(--background)); }
+    .nav-btn:not(:disabled):hover { transform: translateY(-1px); border-color: var(--pill-border); }
+    .wordmark:hover { opacity: 0.72; }
+    .feature:hover { transform: translateY(-2px); border-color: var(--pill-border); }
+    .contact:hover, .watchbox:hover { border-color: var(--pill-border); }
+    .screen:hover .phone { transform: translateY(-3px); }
+    .faq summary:hover::after { border-color: var(--text); }
+  }
+  /* Pressing wins over hovering (the same press feedback the app has). */
+  .pill:active, .nav-btn:not(:disabled):active { transform: scale(0.97); opacity: 0.8; }
+}
+
+/* Sections rise into view once. .motion and .reveal are added by assets/motion.js, only to sections
+ * below the fold and only when motion is allowed; .is-in ends the wait. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* Waiting sections are hidden at once (no transition on this rule, so nothing fades OUT at load);
+     only the arrival is animated, because a transition uses the rule of the state it is going to. */
+  .motion .reveal { opacity: 0; transform: translateY(18px); }
+  .motion .reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+  }
+
+  /* The hero dial drifts very slowly as the page scrolls (a CSS scroll timeline: no script). Where the
+   * browser doesn't support one yet, the dial simply stays put. */
+  @supports (animation-timeline: scroll()) {
+    .hero-motif {
+      animation: hero-drift linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100vh;
+    }
+    @keyframes hero-drift { to { translate: -14px 36px; } }
+  }
 }

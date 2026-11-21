@@ -54,6 +54,7 @@ def layout(*, title: str, description: str, path: str, body: str, home: bool = F
 <link rel="preload" href="/assets/fonts/Figtree-400Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/InstrumentSerif-400Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/motion.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
