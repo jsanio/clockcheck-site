@@ -5,10 +5,10 @@
 <title>ClockCheck share card (1200 x 630)</title>
 <!--
   The picture people see when the link is shared (Messages, Slack, social): assets/og-card.png.
-  Render it with _design/render-og-card.sh. The look is the app's home screen: the saffron hero
-  panel, the watch dial at 10:05 cropped off the corner, Instrument Serif headline, Figtree text.
-  Colours match assets/site.css and the app's src/theme.ts. Keep every word inside the safe area
-  (about 60px from each edge) because some apps crop the image a little.
+  The brand's own composition: a calm ground with ONE saffron hero panel. Published version: navy
+  (the app's dark mode; chosen by Jason 2026-11-21). An ivory version (the app's light mode) is the
+  same page with the address hash #ivory. Render with _design/render-og-card.sh.
+  Colours match assets/site.css and the app's src/theme.ts.
 -->
 <style>
 @font-face { font-family: "Instrument Serif"; src: url("../assets/fonts/InstrumentSerif-400Regular.woff2") format("woff2"); font-weight: 400; }
@@ -16,67 +16,51 @@
 @font-face { font-family: "Figtree"; src: url("../assets/fonts/Figtree-700Bold.woff2") format("woff2"); font-weight: 700; }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #E0A91E; }
+body.ivory { --ground: #F4EFE6; --ink: #1E1C1A; --quiet: #6E6558; --hero: #E0A91E; }
+body.navy  { --ground: #121A2A; --ink: #F1ECE2; --quiet: #9BA6B8; --hero: #D9A21B; }
+html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: var(--ground, #F4EFE6); }
 
 .card {
-  position: relative;
-  width: 1200px;
-  height: 630px;
-  overflow: hidden;
-  background: #E0A91E;          /* hero */
-  color: #1E1C1A;               /* on-hero */
+  position: relative; width: 1200px; height: 630px; overflow: hidden;
+  background: var(--ground); color: var(--ink);
   font-family: "Figtree", system-ui, sans-serif;
+  padding: 50px 56px 0;
 }
+.brand { display: flex; align-items: center; gap: 18px; height: 64px; }
+.brand img { width: 64px; height: 64px; border-radius: 14px; display: block; }
+.brand span { font-weight: 700; font-size: 24px; letter-spacing: 0.15em; text-transform: uppercase; }
 
-/* The app icon's dial, line art in the ink colour, cropped off the right-hand corner. */
-.dial {
-  position: absolute;
-  width: 770px;
-  height: 770px;
-  right: -175px;
-  top: -70px;
-  color: #1E1C1A;
-  opacity: 0.4;
+/* The saffron hero panel, like the app's home screen. */
+.panel {
+  position: relative; margin-top: 26px; height: 402px; border-radius: 52px;
+  background: var(--hero); color: #1E1C1A; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center; padding: 0 64px;
 }
+.dial { position: absolute; width: 640px; height: 640px; right: -75px; top: -119px; color: #1E1C1A; opacity: 0.38; }
+.panel h1, .panel p { position: relative; }
+h1 { margin: 0; font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: 116px; line-height: 0.93; letter-spacing: -2.4px; }
+.lead { margin: 22px 0 0; font-weight: 500; font-size: 35px; color: #3A2E14; }
 
-.content {
-  position: absolute;
-  inset: 0;
-  padding: 64px 72px 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.brand { display: flex; align-items: center; gap: 22px; }
-.brand img { width: 84px; height: 84px; border-radius: 19px; display: block; }
-.brand span { font-weight: 700; font-size: 27px; letter-spacing: 0.15em; text-transform: uppercase; }
-
-.headline { margin-top: 0; }
-h1 { margin: 0; font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: 126px; line-height: 0.93; letter-spacing: -2.5px; }
-.lead { margin: 24px 0 0; font-weight: 500; font-size: 36px; color: #3A2E14; }
-
-.foot { font-weight: 500; font-size: 24px; color: #3A2E14; }
+.foot { margin-top: 28px; font-weight: 500; font-size: 25px; color: var(--quiet); }
 </style>
 </head>
 <body>
 <div class="card">
-  <svg class="dial" viewBox="0 0 230 230" fill="none" stroke="currentColor" aria-hidden="true">
-    <circle cx="115" cy="115" r="108" stroke-opacity=".3" stroke-width="2.7"/>
-    <circle cx="115" cy="115" r="93.85" stroke-opacity=".45" stroke-width="4.3" stroke-dasharray="1.5 8.33" transform="rotate(-90.46 115 115)"/>
-    <circle cx="115" cy="115" r="89.5" stroke-opacity=".8" stroke-width="13" stroke-dasharray="5.9 40.96" transform="rotate(-91.89 115 115)"/>
-    <line x1="115" y1="115" x2="71.3" y2="87.2" stroke-opacity=".85" stroke-width="8.1" stroke-linecap="round"/>
-    <line x1="115" y1="115" x2="152.8" y2="49.5" stroke-opacity=".85" stroke-width="5.7" stroke-linecap="round"/>
-    <circle cx="115" cy="115" r="6.9" fill="currentColor" stroke="none"/>
-  </svg>
-  <div class="content">
-    <div class="brand"><img src="icon-app.png" alt=""><span>ClockCheck</span></div>
-    <div class="headline">
-      <h1>How true is<br>your watch?</h1>
-      <p class="lead">Find out in just 20 seconds.</p>
-    </div>
-    <div class="foot">Mechanical watches &middot; audio never leaves your phone</div>
+  <div class="brand"><img src="icon-app.png" alt=""><span>ClockCheck</span></div>
+  <div class="panel">
+    <svg class="dial" viewBox="0 0 230 230" fill="none" stroke="currentColor" aria-hidden="true">
+      <circle cx="115" cy="115" r="108" stroke-opacity=".3" stroke-width="2.7"/>
+      <circle cx="115" cy="115" r="93.85" stroke-opacity=".45" stroke-width="4.3" stroke-dasharray="1.5 8.33" transform="rotate(-90.46 115 115)"/>
+      <circle cx="115" cy="115" r="89.5" stroke-opacity=".8" stroke-width="13" stroke-dasharray="5.9 40.96" transform="rotate(-91.89 115 115)"/>
+      <line x1="115" y1="115" x2="71.3" y2="87.2" stroke-opacity=".85" stroke-width="8.1" stroke-linecap="round"/>
+      <line x1="115" y1="115" x2="152.8" y2="49.5" stroke-opacity=".85" stroke-width="5.7" stroke-linecap="round"/>
+      <circle cx="115" cy="115" r="6.9" fill="currentColor" stroke="none"/>
+    </svg>
+    <h1>How true is<br>your watch?</h1>
+    <p class="lead">Find out in just 20 seconds.</p>
   </div>
+  <div class="foot">Mechanical watches &middot; audio never leaves your phone</div>
 </div>
+<script>document.body.className = (location.hash || '#navy').slice(1);</script>
 </body>
 </html>
