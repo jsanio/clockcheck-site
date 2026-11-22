@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ClockCheck share card (1200 x 630)</title>
+<!--
+  The picture people see when the link is shared (Messages, Slack, social): assets/og-card.png.
+  Render it with _design/render-og-card.sh. The look is the app's home screen: the saffron hero
+  panel, the watch dial at 10:05 cropped off the corner, Instrument Serif headline, Figtree text.
+  Colours match assets/site.css and the app's src/theme.ts. Keep every word inside the safe area
+  (about 60px from each edge) because some apps crop the image a little.
+-->
+<style>
+@font-face { font-family: "Instrument Serif"; src: url("../assets/fonts/InstrumentSerif-400Regular.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Figtree"; src: url("../assets/fonts/Figtree-500Medium.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Figtree"; src: url("../assets/fonts/Figtree-700Bold.woff2") format("woff2"); font-weight: 700; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #E0A91E; }
+
+.card {
+  position: relative;
+  width: 1200px;
+  height: 630px;
+  overflow: hidden;
+  background: #E0A91E;          /* hero */
+  color: #1E1C1A;               /* on-hero */
+  font-family: "Figtree", system-ui, sans-serif;
+}
+
+/* The app icon's dial, line art in the ink colour, cropped off the right-hand corner. */
+.dial {
+  position: absolute;
+  width: 770px;
+  height: 770px;
+  right: -175px;
+  top: -70px;
+  color: #1E1C1A;
+  opacity: 0.4;
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  padding: 64px 72px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.brand { display: flex; align-items: center; gap: 22px; }
+.brand img { width: 84px; height: 84px; border-radius: 19px; display: block; }
+.brand span { font-weight: 700; font-size: 27px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+.headline { margin-top: 0; }
+h1 { margin: 0; font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: 126px; line-height: 0.93; letter-spacing: -2.5px; }
+.lead { margin: 24px 0 0; font-weight: 500; font-size: 36px; color: #3A2E14; }
+
+.foot { font-weight: 500; font-size: 24px; color: #3A2E14; }
+</style>
+</head>
+<body>
+<div class="card">
+  <svg class="dial" viewBox="0 0 230 230" fill="none" stroke="currentColor" aria-hidden="true">
+    <circle cx="115" cy="115" r="108" stroke-opacity=".3" stroke-width="2.7"/>
+    <circle cx="115" cy="115" r="93.85" stroke-opacity=".45" stroke-width="4.3" stroke-dasharray="1.5 8.33" transform="rotate(-90.46 115 115)"/>
+    <circle cx="115" cy="115" r="89.5" stroke-opacity=".8" stroke-width="13" stroke-dasharray="5.9 40.96" transform="rotate(-91.89 115 115)"/>
+    <line x1="115" y1="115" x2="71.3" y2="87.2" stroke-opacity=".85" stroke-width="8.1" stroke-linecap="round"/>
+    <line x1="115" y1="115" x2="152.8" y2="49.5" stroke-opacity=".85" stroke-width="5.7" stroke-linecap="round"/>
+    <circle cx="115" cy="115" r="6.9" fill="currentColor" stroke="none"/>
+  </svg>
+  <div class="content">
+    <div class="brand"><img src="icon-app.png" alt=""><span>ClockCheck</span></div>
+    <div class="headline">
+      <h1>How true is<br>your watch?</h1>
+      <p class="lead">Find out in just 20 seconds.</p>
+    </div>
+    <div class="foot">Mechanical watches &middot; audio never leaves your phone</div>
+  </div>
+</div>
+</body>
+</html>

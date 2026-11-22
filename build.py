@@ -21,6 +21,11 @@ ROOT = Path(__file__).resolve().parent
 SRC = ROOT / "_src"
 
 NAV = [("/support/", "Support"), ("/privacy/", "Privacy")]
+
+# The picture shown when a link is shared (Messages, Slack, social). Made from _design/og-card.html
+# with _design/render-og-card.sh. It must be an absolute URL, and 1200 x 630.
+SHARE_IMAGE = "https://clockcheck.app/assets/og-card.png"
+SHARE_IMAGE_ALT = "ClockCheck. How true is your watch? Find out in just 20 seconds. A watch dial with its hands at 10:05."
 EMAIL = "hello@clockcheck.app"
 
 
@@ -46,6 +51,16 @@ def layout(*, title: str, description: str, path: str, body: str, home: bool = F
 <meta property="og:title" content="{escape(page_title)}">
 <meta property="og:description" content="{escape(description)}">
 <meta property="og:url" content="{canonical}">
+<meta property="og:image" content="{SHARE_IMAGE}">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{escape(SHARE_IMAGE_ALT)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{escape(page_title)}">
+<meta name="twitter:description" content="{escape(description)}">
+<meta name="twitter:image" content="{SHARE_IMAGE}">
+<meta name="twitter:image:alt" content="{escape(SHARE_IMAGE_ALT)}">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#F4EFE6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121A2A" media="(prefers-color-scheme: dark)">

@@ -15,6 +15,8 @@ There is no Terms of Use page on purpose: the app uses Apple's standard licence 
 | `assets/fonts/` | Self-hosted woff2 fonts (Latin subset) and their licences |
 | `favicon-32.png`, `apple-touch-icon.png`, `assets/icon-*.png` | Resized from the app icon (`assets/icon.png` in the app repo) |
 | `images/screens/` | The six app screens for the home page carousel, each in a light (`01.png`) and a dark (`01-dark.png`) version, 720px-wide PNGs |
+| `assets/og-card.png` | The picture shown when a link to the site is shared (Messages, Slack, social): 1200 x 630, the app's saffron hero panel with the dial at 10:05. Every page names it in its `og:image` and `twitter:image` tags (`SHARE_IMAGE` in `build.py`) |
+| `_design/` | The source of that picture (`og-card.html`, the app icon, `render-og-card.sh`). Not published (starts with `_`). To change the card: edit `og-card.html`, run `sh _design/render-og-card.sh` (needs Google Chrome and Pillow), commit the new PNG. Apps cache previews per link, so test a changed card with a new address such as `https://clockcheck.app/?v=2` |
 | `CNAME` | `clockcheck.app`, for GitHub Pages |
 | `_src/` | Page content. `_src/legal/privacy.html` holds the Privacy Policy |
 | `build.py` | Wraps `_src/` pages in the shared header and footer (Python 3, standard library only) |
